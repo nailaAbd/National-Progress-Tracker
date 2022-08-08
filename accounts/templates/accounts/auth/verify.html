@@ -1,0 +1,72 @@
+
+
+  {% extends 'accounts/main/base_auth.html' %} {% block title %}Password Reset{% endblock title %} {% load static %} {% block content %}
+  {% load static %}
+  
+  
+    <div class="container">
+      <div class="auth-image-container">
+        <img class="auth-img" src="{% static 'Custom/accounts/images/accounts_main/logo_1.PNG' %}" alt="home" />
+      </div>
+      <h2 class="custom-title-auth">Verify Phone Number</h2>
+      <div class="row">
+        <div class="col-lg-6 col-md-8 offset-md-2 offset-lg-3">
+          <form class="auth-form" method="POST">
+            {% csrf_token %} 
+            {% if form.errors %}
+            <ul>
+              {% for key, error in form.errors.items %} {% if key == '__all__' %}
+              <li class="error-text">{{ error }}</li>
+              {% endif %} {% endfor %}
+            </ul>
+            {% endif %}
+            <p class="auth-text-in">Please enter the code that was sent to you.</p>
+            <div class="mb-3">
+              <div class="form-group mb-0">
+                <label class="form-label-auth">Enter code</label>
+                <input
+                id="{% if form.code.errors %}auth-forms-invalid{% else %}auth-forms{% endif %}"
+                  type="text"
+                  name="code"
+                  class="form-control"
+                  placeholder="Enter your code"
+                  {% if filled_form_data.code %}
+                  value="{{ filled_form_data.code }}"
+                  {% endif %}
+  
+                />
+              </div>
+              {% if form.code.errors %}
+              <ul>
+                  {% for error in form.code.errors %}
+                  <li class="error-text">{{ error }}</li>
+                  {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+  
+            <div class="com-btn-b text-center">
+              <button type="submit">Verify</button>
+            </div>
+  
+  
+            <div class="create-btn text-center">
+              <p>
+                <a href="{% url 'login' %}">
+                  Go back to login page
+                  <i class="bx bx-chevrons-right bx-fade-right"></i>
+                </a>
+              </p>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  
+    
+  {% endblock content %}
+  
+  
+  
+  
